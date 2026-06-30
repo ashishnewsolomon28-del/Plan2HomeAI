@@ -1,74 +1,64 @@
-function Dashboard() {
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import MainLayout from "../layouts/MainLayout";
+import { getProjects } from "../services/projectService";
+export default function Dashboard() {
+      const navigate = useNavigate();
+const [projects, setProjects] = useState([]);
+
+useEffect(() => {
+  setProjects(getProjects());
+}, []);
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        background: "#FAF7F2",
-        padding: "40px",
-        fontFamily: "Poppins, sans-serif",
-      }}
-    >
- <h1
-  style={{
-    color: "#2D3238",
-    fontSize: "42px",
-  }}
->
-    🏡 Plan2Home AI
-</h1>
-      <p
-        style={{
-          color: "#666",
-          fontSize: "20px",
-          marginBottom: "40px",
-        }}
-      >
-        Upload your floor plan. Let AI bring it to life.
+    <MainLayout>
+
+      <h1 className="text-4xl font-bold text-gray-800">
+        Welcome back 👋
+      </h1>
+
+      <p className="text-gray-500 mt-2 mb-10">
+        Ready to build your dream home?
       </p>
 
       <button
-        style={{
-          background: "#2F80ED",
-          color: "white",
-          border: "none",
-          padding: "16px 30px",
-          borderRadius: "12px",
-          fontSize: "18px",
-          cursor: "pointer",
-        }}
-      >
-        + Create New Project
-      </button>
+  onClick={() => navigate("/new-project")}
+  className="bg-[#2F80ED] hover:bg-blue-700 text-white px-6 py-4 rounded-xl font-semibold"
+>
+  + Create New Project
+</button>
+<div className="mt-12">
+  <h2 className="text-2xl font-bold text-gray-800 mb-6">
+    My Projects
+  </h2>
 
-      <div
-        style={{
-          marginTop: "50px",
-          background: "white",
-          borderRadius: "20px",
-          padding: "30px",
-          boxShadow: "0 8px 30px rgba(0,0,0,0.08)",
-        }}
-      >
-        <h2>Upload Floor Plan</h2>
-
-        <div
-          style={{
-            marginTop: "20px",
-            border: "2px dashed #2F80ED",
-            borderRadius: "20px",
-            padding: "60px",
-            textAlign: "center",
-            color: "#666",
-          }}
-        >
-          📄 Drag & Drop PDF Here
-          <br />
-          <br />
-          or click to browse
-        </div>
-      </div>
+  {projects.length === 0 ? (
+    <div className="bg-white rounded-2xl p-8 shadow">
+      No projects yet.
     </div>
+  ) : (
+    <div className="grid gap-5">
+      {projects.map((project) => (
+        <div
+          key={project.id}
+          className="bg-white rounded-2xl shadow p-6 hover:shadow-lg transition"
+        >
+          <h3 className="text-xl font-semibold">
+            🏠 {project.name}
+          </h3>
+
+          <p className="text-gray-500 mt-2">
+            {project.status}
+          </p>
+
+          <p className="text-sm text-gray-400 mt-4">
+            Created: {project.created}
+          </p>
+        </div>
+      ))}
+    </div>
+  )}
+</div>
+    </MainLayout>
   );
 }
-
-export default Dashboard;
