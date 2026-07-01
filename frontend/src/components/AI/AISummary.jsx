@@ -1,62 +1,37 @@
+import RoomSummaryCard from "./RoomSummaryCard";
+import VastuCard from "./VastuCard";
 export default function AISummary({ data }) {
   if (!data) return null;
 
   return (
-    <div
+  <div style={{ marginTop: "30px" }}>
+
+    <h1
       style={{
-        background: "#fff",
-        padding: "25px",
-        borderRadius: "16px",
-        marginTop: "30px",
-        boxShadow: "0 8px 25px rgba(0,0,0,.08)",
+        marginBottom: "25px",
       }}
     >
-      <h2>✅ AI Analysis Complete</h2>
+      AI Analysis Report
+    </h1>
 
-      <h3>{data.projectName}</h3>
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "1fr 1fr",
+        gap: "20px",
+      }}
+    >
 
-      <table style={{ width: "100%", marginTop: "20px" }}>
-        <tbody>
+      <RoomSummaryCard
+        data={data}
+      />
 
-          <tr>
-            <td>Bedrooms</td>
-            <td>{data.rooms.bedrooms}</td>
-          </tr>
+      <VastuCard
+        data={data}
+      />
 
-          <tr>
-            <td>Bathrooms</td>
-            <td>{data.rooms.bathrooms}</td>
-          </tr>
-
-          <tr>
-            <td>Kitchen</td>
-            <td>{data.rooms.kitchen}</td>
-          </tr>
-
-          <tr>
-            <td>Living Room</td>
-            <td>{data.rooms.livingRoom}</td>
-          </tr>
-
-          <tr>
-            <td>Dining Room</td>
-            <td>{data.rooms.diningRoom}</td>
-          </tr>
-
-          <tr>
-            <td>Built-up Area</td>
-            <td>
-              {data.area.builtUp} {data.area.unit}
-            </td>
-          </tr>
-
-          <tr>
-            <td>AI Confidence</td>
-            <td>{data.confidence}%</td>
-          </tr>
-
-        </tbody>
-      </table>
     </div>
-  );
+
+  </div>
+);
 }
