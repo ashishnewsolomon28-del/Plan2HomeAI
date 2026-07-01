@@ -40,9 +40,10 @@ useEffect(() => {
     <div className="grid gap-5">
       {projects.map((project) => (
         <div
-          key={project.id}
-          className="bg-white rounded-2xl shadow p-6 hover:shadow-lg transition"
-        >
+  key={project.id}
+  onClick={() => navigate(`/project/${project.id}`)}
+  className="bg-white rounded-2xl shadow p-6 hover:shadow-lg transition cursor-pointer"
+>
           <h3 className="text-xl font-semibold">
             🏠 {project.name}
           </h3>
